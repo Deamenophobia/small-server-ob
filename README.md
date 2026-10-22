@@ -141,3 +141,7 @@ The tests also cover configuration precedence and limits, adapter injection, bil
 Desktop browser interactions and screenshots are recorded in [Visual testing](docs/visual-testing.md). These are manual UI/screenshot checks, not a pixel-diff suite. `npm run docs:check` verifies the reviewed image hashes and scans documentation/demo/UI text for known local server identifiers when a registry is available.
 
 Run `npm run format` to apply the shared formatting rules to source and documentation; private runtime files are excluded. Live SSH/cloud connectivity requires your own configured targets and is not exercised by the demo.
+
+## Related project
+
+[Ops Compass](https://github.com/Deamenophobia/ops-compass) is a personal operations portal built on Backstage, with a service catalog, ownership, dependencies, runbooks, worklogs and read-only AI tools. It complements Lookout's lightweight server dashboard with broader service and operations context. The projects run independently; there is no built-in data synchronization.
