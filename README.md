@@ -128,7 +128,7 @@ npm run docs:check
 npm run repo:check
 ```
 
-GitLab CI runs these checks and the test suite on Node.js 22 and 24 after pushes and for merge requests. Test results appear in the pipeline's **Tests** tab, with JUnit reports retained for seven days. The pipeline uses temporary registries, loopback services, and fictional fixtures; it requires no server or billing credentials. There is no deployment job: launch Lookout on your own computer with `npm start`.
+GitLab CI and GitHub Actions run these checks and the test suite on Node.js 22 and 24 after pushes and for merge/pull requests. GitLab shows test results in the pipeline's **Tests** tab; GitHub provides a separate JUnit artifact for each Node.js version. Reports are retained for seven days. Both pipelines use temporary registries, loopback services, and fictional fixtures; they require no server or billing credentials. Launch Lookout on your own computer with `npm start`; these pipelines verify the source and do not deploy the app.
 
 `repo:check` inspects the Git index for private runtime files and common credential patterns. When the local registry exists, it also checks tracked text for known server identifiers. Run it locally after staging changes and before pushing; CI cannot compare against a private registry it never receives. This is a focused guard, not a comprehensive secret scanner.
 
