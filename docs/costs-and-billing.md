@@ -22,6 +22,8 @@ Initial prices can be based on public list prices, but the basis must state any 
 LOOKOUT_DO_TOKEN_FILE=C:/Users/YOUR_NAME/.config/lookout/do-token.txt
 ```
 
+On Linux, use an absolute path such as `/home/YOUR_NAME/.config/lookout/do-token.txt`. Shell variables and `~` are not expanded in `.env`; see the [Linux setup guide](linux.md).
+
 Alternatively, provide `DIGITALOCEAN_TOKEN` in the environment of the Lookout process. The token is read only on the backend. It is not returned to the browser or included in exports or cached billing responses.
 
 The adapter calls `GET https://api.digitalocean.com/v2/customers/my/balance`. It shows month-to-date usage and the provider's month-to-date balance, which includes prior account balance. Negative balances represent credit. The provider's generation time is shown separately from retrieval time. See the [official billing API](https://docs.digitalocean.com/platform/billing/reference/api/).

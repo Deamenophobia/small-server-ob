@@ -7,6 +7,8 @@ Copy-Item lookout.config.example.json lookout.config.json
 npm start
 ```
 
+On Linux, use `cp lookout.config.example.json lookout.config.json`, then `./start.sh`.
+
 `lookout.config.json` is ignored by Git. It contains operational settings, not secrets. Continue using local AWS profiles or the DigitalOcean token-file setup described in [Costs and billing](costs-and-billing.md).
 
 | Setting                      | Default         | Allowed values / meaning                                                    |

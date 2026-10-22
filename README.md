@@ -16,7 +16,9 @@ npm ci
 npm start
 ```
 
-Open **http://127.0.0.1:4310**. On Windows you can also double-click `start.cmd` or run `./start.ps1`. Stop the foreground process with Ctrl+C. The backend only binds to `127.0.0.1`.
+Open **http://127.0.0.1:4310**. On Windows you can also double-click `start.cmd` or run `./start.ps1`. On Linux, run `./start.sh` (or `sh start.sh` if a ZIP download lost the executable permission). Stop the foreground process with Ctrl+C. The backend only binds to `127.0.0.1`.
+
+See the [Linux setup guide](docs/linux.md) for prerequisites, persistent data, SSH configuration, and moving your registry from Windows.
 
 For a different port, set `PORT` before starting. Set `LOOKOUT_DATA_DIR` to an absolute path to put the registry elsewhere. Relative data paths resolve from your working directory; the default is the project's `data` folder.
 
