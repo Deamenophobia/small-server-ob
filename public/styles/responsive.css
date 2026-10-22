@@ -1,0 +1,180 @@
+@media (min-width: 1500px) {
+  .content {
+    padding-top: 52px;
+  }
+  .server-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 1150px) {
+  .sidebar {
+    width: 205px;
+    padding-inline: 14px;
+  }
+  main {
+    margin-left: 205px;
+    width: calc(100% - 205px);
+  }
+  .content {
+    padding: 32px 28px;
+  }
+  .topbar {
+    padding-inline: 28px;
+  }
+  .server-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .summary {
+    gap: 10px;
+  }
+  .summary-item {
+    padding: 16px;
+  }
+  .summary-value small {
+    display: none;
+  }
+  h1 {
+    font-size: 31px;
+  }
+  .filters button {
+    padding: 8px;
+  }
+  .search {
+    width: 165px;
+  }
+  .toast {
+    left: calc(50% + 102px);
+  }
+}
+@media (max-width: 800px) {
+  .sidebar {
+    width: 70px;
+    padding: 22px 10px;
+  }
+  .brand {
+    font-size: 0;
+    margin: 0;
+    justify-content: center;
+  }
+  .brand-mark {
+    margin: 0;
+    font-size: 39px;
+  }
+  .brand-period,
+  .workspace,
+  .nav-label,
+  .provider-nav,
+  .sidebar-bottom,
+  .nav-item {
+    display: none;
+  }
+  main {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+  .content {
+    padding: 25px 20px;
+  }
+  .topbar {
+    height: 62px;
+    padding-inline: 20px;
+  }
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .heading-actions {
+    padding-top: 10px;
+  }
+  .summary {
+    margin-top: 26px;
+    margin-bottom: 27px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .summary-item {
+    min-height: 95px;
+  }
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search {
+    width: 100%;
+  }
+  .filters button {
+    flex: 1;
+  }
+  .poll-status {
+    font-size: 8px;
+  }
+  .toast {
+    left: calc(50% + 35px);
+  }
+}
+@media (max-width: 540px) {
+  .sidebar {
+    display: none;
+  }
+  main {
+    margin-left: 0;
+    width: 100%;
+  }
+  .content {
+    padding: 25px 17px;
+  }
+  .topbar {
+    padding-inline: 17px;
+  }
+  .server-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-grid > label {
+    grid-column: 1/-1;
+  }
+  .summary-value small {
+    display: block;
+  }
+  .empty-state {
+    padding: 30px 15px;
+  }
+  .empty-state h2 {
+    font-size: 22px;
+  }
+  .empty-state p br {
+    display: none;
+  }
+  footer {
+    font-size: 8px;
+  }
+  .topbar-right {
+    gap: 10px;
+  }
+  .demo-banner {
+    flex-direction: column;
+  }
+  .toast {
+    left: 50%;
+  }
+  dialog {
+    padding: 24px;
+  }
+  .link-row {
+    grid-template-columns: 85px 1fr 22px;
+  }
+  .fleet-heading {
+    align-items: flex-start;
+  }
+  .poll-status {
+    margin-top: 5px;
+  }
+  .checkbox-label {
+    padding-top: 0;
+  }
+  .settings-actions {
+    flex-wrap: wrap;
+  }
+}

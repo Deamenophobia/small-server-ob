@@ -1,0 +1,28 @@
+{
+  "name": "lookout-local",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A local home for your servers, health checks, and notes.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "test": "node --test",
+    "test:ci": "node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=junit.xml",
+    "check": "node scripts/check.mjs",
+    "demo": "node scripts/demo.mjs",
+    "format": "prettier --write server.mjs \"lib/**/*.mjs\" \"public/**/*.{js,html,css}\" \"scripts/**/*.mjs\" \"test/**/*.mjs\" \"docs/**/*.md\" README.md lookout.config.example.json package.json",
+    "docs:check": "node scripts/check-docs.mjs",
+    "repo:check": "node scripts/check-repository.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cost-explorer": "^3.1155.0",
+    "@aws-sdk/credential-providers": "^3.1155.0"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}

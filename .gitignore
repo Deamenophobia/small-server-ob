@@ -1,0 +1,15 @@
+data/
+.env
+.env.*
+!.env.example
+lookout.config.json
+*.log
+node_modules/
+test-results/
+.npm/
+junit.xml
+coverage/
+*.pem
+*.key
+id_rsa*
+id_ed25519*

@@ -1,0 +1,41 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"'
+      when: never
+    - if: '$CI_COMMIT_BRANCH || $CI_COMMIT_TAG'
+
+stages:
+  - verify
+
+verify:
+  stage: verify
+  image: node:${NODE_VERSION}-bookworm
+  parallel:
+    matrix:
+      - NODE_VERSION: ['22', '24']
+  interruptible: true
+  timeout: 10 minutes
+  variables:
+    npm_config_cache: '$CI_PROJECT_DIR/.npm'
+  cache:
+    key:
+      prefix: 'node-${NODE_VERSION}'
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+  before_script:
+    - npm ci --prefer-offline --no-audit --no-fund
+  script:
+    - npm run repo:check
+    - npm run check
+    - npm run docs:check
+    - npm run test:ci
+  artifacts:
+    when: always
+    expire_in: 7 days
+    reports:
+      junit: junit.xml
+    paths:
+      - junit.xml

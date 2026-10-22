@@ -1,0 +1,20 @@
+{
+  "source": "isolated-fictional-demo",
+  "capturedOn": "2026-10-22",
+  "launcher": "npm run demo",
+  "fixture": "lib/demo/fixture.mjs",
+  "images": [
+    {
+      "file": "overview.jpg",
+      "sha256": "e241d24041f6c5a305db0737581ac0a743f17ccb47c50bf9760fd28f5bcb88ae"
+    },
+    {
+      "file": "fleet-panel.jpg",
+      "sha256": "3169f0d82b65904ddc6c9bd38e830433cd1d8d04d2193a624c661631cededd0c"
+    },
+    {
+      "file": "cost-editor.jpg",
+      "sha256": "d338f4c17f0be91cf1d95a21607187c521cd48f79e87712977d8ae15363e594c"
+    }
+  ]
+}

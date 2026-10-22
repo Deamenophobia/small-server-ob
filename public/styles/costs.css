@@ -1,0 +1,241 @@
+.cost-section {
+  margin: -10px 0 36px;
+}
+.cost-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+.cost-heading h2 {
+  font-size: 17px;
+}
+.cost-heading p {
+  margin: 7px 0 0;
+  color: #78846c;
+  font-size: 11px;
+}
+.cost-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+}
+.billing-query-note {
+  margin: -4px 0 16px;
+  padding-left: 10px;
+  border-left: 2px solid #a2b98b;
+  color: #526a43;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.cost-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+}
+.cost-estimate {
+  background: #edf2e4;
+  border: 1px solid #dbe4cf;
+  border-radius: 8px;
+  padding: 20px;
+}
+.cost-kicker {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #677b57;
+}
+.cost-total {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: 27px;
+  font-weight: 550;
+  letter-spacing: -0.7px;
+  margin: 14px 0 6px;
+}
+.cost-coverage {
+  font-size: 10px;
+  color: #677b57;
+}
+.cost-provider-totals {
+  border-top: 1px solid #dbe4cf;
+  margin-top: 16px;
+  padding-top: 8px;
+}
+.cost-provider-totals div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  padding: 6px 0;
+  gap: 10px;
+}
+.cost-provider-totals p,
+.cost-assumption {
+  font-size: 10px;
+  color: #7c8b6d;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+.billing-provider-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.billing-provider {
+  background: #fff;
+  border: 1px solid #e0e5da;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.billing-provider-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+}
+.billing-status {
+  font-size: 9px;
+  background: #f1f3ee;
+  padding: 4px 6px;
+  color: #7b8872;
+  border-radius: 4px;
+}
+.billing-status.error,
+.billing-status.stale {
+  background: #fff4df;
+  color: #9a702a;
+}
+.billing-status.ready {
+  background: #edf6ed;
+  color: #3c7647;
+}
+.billing-amount {
+  font-size: 26px;
+  margin: 15px 0 5px;
+  font-weight: 500;
+  letter-spacing: -0.7px;
+}
+.billing-caption {
+  font-size: 10px;
+  color: #7b8872;
+}
+.billing-description {
+  font-size: 10px;
+  color: #7c8974;
+  line-height: 1.7;
+  margin: 12px 0 15px;
+}
+.billing-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+  margin-top: auto;
+}
+.billing-links a {
+  color: #648053;
+  text-decoration: none;
+}
+.billing-balance {
+  font-size: 10px;
+  margin: 12px 0 0;
+  line-height: 1.7;
+}
+.billing-balance strong {
+  display: block;
+  font-size: 15px;
+}
+.billing-balance small {
+  display: block;
+  color: #7b8872;
+}
+.cost-disclaimer {
+  font-size: 10px;
+  line-height: 1.6;
+  color: #7a886e;
+  margin: 12px 0 0;
+}
+.server-cost {
+  margin-top: 17px;
+  padding-top: 12px;
+  border-top: 1px solid #edf0e8;
+}
+.server-cost > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.cost-label {
+  color: #7a886e;
+  letter-spacing: 0.6px;
+  font-size: 8px;
+}
+.server-cost button {
+  font-size: 14px;
+  font-weight: 550;
+  color: #3d6340;
+}
+.server-cost button small {
+  font-weight: 400;
+  font-size: 11px;
+  color: #94a484;
+}
+.server-cost p {
+  color: #7a886e;
+  font-size: 9px;
+  line-height: 1.6;
+  margin: 7px 0 0;
+  max-height: 45px;
+  overflow: auto;
+}
+.server-cost a {
+  color: #648053;
+}
+#billing-dialog {
+  max-width: 680px;
+}
+#billing-dialog li {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #77896a;
+  margin: 7px 0;
+}
+#billing-dialog ol {
+  padding-left: 20px;
+}
+#billing-dialog code {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 1150px) {
+  .cost-layout {
+    grid-template-columns: 1fr;
+  }
+  .cost-total {
+    font-size: 24px;
+  }
+  .cost-provider-totals {
+    display: flex;
+    gap: 22px;
+  }
+  .cost-provider-totals div {
+    gap: 12px;
+  }
+}
+@media (max-width: 540px) {
+  .billing-provider-cards {
+    grid-template-columns: 1fr;
+  }
+  .cost-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .cost-provider-totals {
+    display: block;
+  }
+}

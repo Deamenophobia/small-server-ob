@@ -1,0 +1,7 @@
+node_modules/
+data/
+test-results/
+docs/images/
+.env*
+lookout.config.json
+package-lock.json

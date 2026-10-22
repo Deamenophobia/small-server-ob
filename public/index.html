@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Your servers, in sight. A private, local server observatory." />
+    <title>Lookout — Server observatory</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Lookout home"
+        ><span class="brand-mark">◒</span> lookout<span class="brand-period">.</span></a
+      >
+      <div class="workspace">
+        <span class="workspace-icon">L</span>
+        <div>Local workspace<small>Only on this computer</small></div>
+        <span class="local-dot"></span>
+      </div>
+      <p class="nav-label">WORKSPACE</p>
+      <button class="nav-item active" id="overview-nav">
+        <span>▦</span> Overview <span id="sidebar-count" class="nav-count">0</span>
+      </button>
+      <p class="nav-label providers-label">PROVIDERS</p>
+      <div id="provider-nav"></div>
+      <div class="sidebar-bottom">
+        <button class="nav-item" id="guide-button"><span>ⓘ</span> Connection guide</button>
+        <button class="nav-item" id="settings-button"><span>⚙</span> Workspace settings</button>
+        <div class="privacy-note">
+          <span class="local-dot"></span>
+          <div>Local by design<small>Your registry stays with you.</small></div>
+        </div>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar">
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
+        <div class="topbar-right">
+          <button class="icon-button mobile-action" id="mobile-guide" aria-label="Connection guide">ⓘ</button
+          ><button class="icon-button mobile-action" id="mobile-settings" aria-label="Workspace settings">
+            ⚙</button
+          ><span class="local-pill"><i></i> LOCAL INSTANCE</span><span class="avatar">L</span>
+        </div>
+      </header>
+      <section class="content">
+        <div id="connection-alert" class="alert" role="alert" hidden></div>
+        <div id="demo-banner" class="demo-banner" hidden>
+          <span><strong>Example fleet</strong> · Illustrative data only. No connections are made.</span
+          ><button id="exit-demo" class="text-button">Exit preview ↗</button>
+        </div>
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">YOUR INFRASTRUCTURE, IN SIGHT</div>
+            <h1>Server overview<span>.</span></h1>
+            <p>A little clarity across all your clouds.</p>
+          </div>
+          <div class="heading-actions">
+            <button id="refresh-button" class="button secondary"><span>↻</span> Check now</button
+            ><button class="button primary add-button"><span>＋</span> Add server</button>
+          </div>
+        </div>
+        <div class="summary" id="summary"></div>
+        <section id="cost-section" class="cost-section" aria-label="Costs and billing">
+          <div class="cost-heading">
+            <div>
+              <h2>A view of your spending</h2>
+              <p id="cost-month">Monthly estimate</p>
+            </div>
+            <div class="cost-heading-actions">
+              <button class="text-button" data-billing-guide>Connect billing ↗</button
+              ><button class="button secondary" id="refresh-billing" disabled>↻ Refresh billing</button>
+            </div>
+          </div>
+          <p class="billing-query-note" id="billing-query-note">
+            Health checks and estimates never query billing APIs. Billing refresh is optional.
+          </p>
+          <div class="cost-layout">
+            <article class="cost-estimate">
+              <div class="cost-kicker">ESTIMATED MONTHLY BASELINE</div>
+              <div id="cost-total" class="cost-total">—</div>
+              <div id="cost-coverage" class="cost-coverage">No rates set</div>
+              <div id="cost-provider-totals" class="cost-provider-totals"></div>
+              <p id="cost-assumption" class="cost-assumption"></p>
+            </article>
+            <div id="billing-provider-cards" class="billing-provider-cards"></div>
+          </div>
+          <p class="cost-disclaimer">
+            Estimates use the rates on your server cards. Taxes, backups, storage, public IPs, bandwidth,
+            credits, and discounts may change your bill. Account billing totals are separate and are never
+            added to the estimates.
+          </p>
+        </section>
+        <div class="fleet-heading">
+          <div>
+            <h2>Your fleet <span id="fleet-count">0</span></h2>
+            <p id="fleet-description">One place for every server.</p>
+          </div>
+          <span id="poll-status" class="poll-status"><i></i> Connecting</span>
+        </div>
+        <div class="toolbar">
+          <div class="filters" id="status-filters">
+            <button data-filter="all" class="selected">All servers</button
+            ><button data-filter="healthy">Healthy</button
+            ><button data-filter="attention">Needs attention</button
+            ><button data-filter="paused">Paused</button>
+          </div>
+          <label class="search"
+            ><span>⌕</span
+            ><input id="search" type="search" placeholder="Find a server…" aria-label="Find a server"
+          /></label>
+        </div>
+        <div id="server-grid" class="server-grid" aria-live="polite"></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-symbol">⌁</div>
+          <div class="eyebrow">MAKE YOURSELF AT HOME</div>
+          <h2>A clear view starts with one server.</h2>
+          <p>
+            Connect a Linux host or a health endpoint. Add a name,<br />
+            a few notes, and the links you reach for every day.
+          </p>
+          <div>
+            <button class="button primary add-button">＋ Add your first server</button
+            ><button class="button secondary" id="demo-button">Preview an example fleet ↗</button>
+          </div>
+          <div class="empty-foot">AWS · DigitalOcean · Hetzner · Any provider</div>
+        </div>
+        <div id="no-results" class="no-results" hidden>
+          No servers match these filters.
+          <button class="text-button" id="clear-filters">Clear filters</button>
+        </div>
+        <footer>
+          <span><span class="local-dot"></span> Saved locally. Ready when you are.</span
+          ><span id="last-sync">Waiting for local backend</span>
+        </footer>
+      </section>
+    </main>
+    <dialog id="server-dialog">
+      <form id="server-form">
+        <div class="dialog-heading">
+          <div class="eyebrow">YOUR LOCAL REGISTRY</div>
+          <button type="button" class="icon-button close-dialog" aria-label="Close">×</button>
+        </div>
+        <h2 id="form-title">Add a server</h2>
+        <p class="dialog-subtitle">Give it a home in your overview.</p>
+        <input type="hidden" name="id" />
+        <div class="form-grid">
+          <label class="full"
+            >Server name<input name="name" required maxlength="80" placeholder="e.g. Production API" /></label
+          ><label
+            >Provider<input
+              name="provider"
+              list="providers"
+              value="DigitalOcean"
+              required
+              maxlength="40"
+            /><datalist id="providers">
+              <option>DigitalOcean</option>
+              <option>AWS</option>
+              <option>Hetzner</option>
+              <option>Azure</option>
+              <option>Google Cloud</option>
+              <option>Other</option>
+            </datalist></label
+          ><label
+            >Region / location<input
+              name="region"
+              maxlength="60"
+              placeholder="e.g. Singapore · SGP1" /></label
+          ><label class="full"
+            >Monitoring method<select name="type" id="check-type">
+              <option value="ssh">SSH · CPU, memory & disk</option>
+              <option value="http">HTTP / HTTPS · endpoint health</option>
+              <option value="tcp">TCP · port reachability</option>
+            </select></label
+          >
+          <div class="full check-fields" data-type="ssh">
+            <label
+              >SSH config alias<input name="alias" maxlength="100" placeholder="e.g. production-api"
+            /></label>
+            <p class="field-help">
+              Uses your existing SSH keys and config. The host must run Linux with Python 3.
+              <button type="button" class="text-button" id="ssh-help">Setup guide ↗</button>
+            </p>
+          </div>
+          <div class="full check-fields" data-type="http" hidden>
+            <label
+              >Health endpoint<input name="url" type="url" placeholder="https://api.example.com/health"
+            /></label>
+            <p class="field-help" id="http-help">
+              A 2xx response passes. Redirects or responses over 1.5s need attention.
+            </p>
+          </div>
+          <div class="full check-fields form-grid" data-type="tcp" hidden>
+            <label>Hostname / IP<input name="host" placeholder="203.0.113.10" /></label
+            ><label>Port<input name="port" type="number" min="1" max="65535" value="22" /></label>
+            <p class="field-help full">Checks whether the port accepts a connection.</p>
+          </div>
+          <label class="full"
+            >Purpose & notes <span class="optional">optional</span
+            ><textarea
+              name="notes"
+              rows="3"
+              maxlength="2000"
+              placeholder="What lives here? Anything future-you should know."
+            ></textarea>
+          </label>
+          <div class="full links-heading">
+            <label>Quick links <span class="optional">optional</span></label
+            ><button type="button" class="text-button" id="add-link">＋ Add link</button>
+          </div>
+          <div class="full" id="link-fields"></div>
+          <label
+            >Timeout<select name="timeoutMs">
+              <option value="10000">10 seconds</option>
+              <option value="20000">20 seconds</option>
+              <option value="30000">30 seconds</option>
+              <option value="2000">2 seconds</option>
+              <option value="5000">5 seconds</option>
+            </select></label
+          ><label class="checkbox-label"
+            ><input name="enabled" type="checkbox" checked /> Enable monitoring</label
+          >
+        </div>
+        <p id="form-error" class="form-error" role="alert" hidden></p>
+        <div class="dialog-actions">
+          <button type="button" class="button secondary close-dialog">Cancel</button
+          ><button type="submit" class="button primary" id="save-server">Save server</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="settings-dialog">
+      <div class="dialog-heading">
+        <div class="eyebrow">LOCAL WORKSPACE</div>
+        <button class="icon-button close-dialog" aria-label="Close">×</button>
+      </div>
+      <h2>Workspace settings</h2>
+      <p class="dialog-subtitle">Small preferences. Everything stays on this computer.</p>
+      <form id="settings-form">
+        <label
+          >Check interval<select id="interval">
+            <option value="10">Every 10 seconds</option>
+            <option value="30">Every 30 seconds</option>
+            <option value="60">Every minute</option>
+            <option value="300">Every 5 minutes</option>
+            <option value="900">Every 15 minutes</option>
+          </select></label
+        >
+        <p class="field-help">
+          Checks run while the local app is running. Closing the browser does not stop the backend.
+        </p>
+        <button class="button primary" type="submit">Save interval</button>
+      </form>
+      <hr />
+      <h3>Take your registry with you</h3>
+      <p class="field-help">
+        Export server names, notes, connection settings, and links. SSH keys and observation history are never
+        included. Import adds to your existing servers.
+      </p>
+      <div class="settings-actions">
+        <button id="export-button" class="button secondary">↓ Export registry</button
+        ><button id="import-button" class="button secondary">↑ Import registry</button
+        ><input id="import-file" type="file" accept=".json,application/json" hidden />
+      </div>
+      <p class="field-help">Registry folder</p>
+      <code id="data-path" class="path"></code>
+      <p id="settings-message" class="field-help" role="status"></p>
+    </dialog>
+    <dialog id="guide-dialog">
+      <div class="dialog-heading">
+        <div class="eyebrow">GOOD TO KNOW</div>
+        <button class="icon-button close-dialog" aria-label="Close">×</button>
+      </div>
+      <h2>A connection, without the clutter.</h2>
+      <p class="dialog-subtitle">Start with a host you can already reach from this computer.</p>
+      <h3>01 &nbsp; Add an SSH alias</h3>
+      <p class="field-help">
+        Add a host to <code>~/.ssh/config</code> (on Windows, your user folder’s <code>.ssh/config</code>).
+        Use your real hostname and key path.
+      </p>
+      <pre>
+Host production-api
+  HostName your-server.example.com
+  User your-user
+  IdentityFile ~/.ssh/your-private-key</pre>
+      <h3>02 &nbsp; Verify the connection</h3>
+      <p class="field-help">
+        Run <code>ssh production-api</code> in your terminal. Verify the host key with your provider before
+        trusting it. If your key is encrypted, unlock it in your SSH agent. Check that <code>python3</code> is
+        available on the Linux host.
+      </p>
+      <h3>03 &nbsp; Add it to Lookout</h3>
+      <p class="field-help">
+        Choose SSH and enter <code>production-api</code>. Lookout reads CPU activity, available memory, and
+        root-filesystem usage using a fixed Python program. It installs nothing and does not need sudo.
+      </p>
+      <div class="guide-note" id="threshold-note">
+        CPU ≥ 90%, memory ≥ 85%, or disk ≥ 85% shows a warning. SSH collection time includes login and a short
+        CPU sample; it is not network latency. Failed SSH collection means unknown health.
+      </div>
+      <h3>Prefer a health endpoint?</h3>
+      <p class="field-help">
+        Choose HTTP for an application health URL, or TCP to check a port. These show reachability and
+        response time; CPU, memory, and disk require SSH.
+      </p>
+      <h3>What about cloud APIs?</h3>
+      <p class="field-help">
+        AWS CloudWatch and DigitalOcean Monitoring support metric APIs. Memory and filesystem usage require a
+        metric agent or publisher. Cloud health-metric API adapters are not included; provider labels organize
+        your manually added hosts. Billing connections are available separately.
+      </p>
+      <div class="guide-links">
+        <a
+          href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/viewing_metrics_with_cloudwatch.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          >AWS documentation ↗</a
+        ><a
+          href="https://docs.digitalocean.com/products/monitoring/reference/api/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >DigitalOcean documentation ↗</a
+        >
+      </div>
+    </dialog>
+    <dialog id="delete-dialog">
+      <div class="eyebrow">REMOVE FROM REGISTRY</div>
+      <h2>Remove this server?</h2>
+      <p id="delete-copy" class="dialog-subtitle"></p>
+      <p class="field-help">This removes its local card and history. The remote server is unaffected.</p>
+      <div class="dialog-actions">
+        <button class="button secondary close-dialog">Keep server</button
+        ><button class="button danger" id="confirm-delete">Remove server</button>
+      </div>
+    </dialog>
+    <dialog id="cost-dialog">
+      <form id="cost-form">
+        <div class="dialog-heading">
+          <div class="eyebrow">PLAN YOUR SPENDING</div>
+          <button type="button" class="icon-button close-dialog" aria-label="Close">×</button>
+        </div>
+        <h2>Server cost estimate</h2>
+        <p id="cost-server-name" class="dialog-subtitle"></p>
+        <input type="hidden" name="id" />
+        <div class="form-grid">
+          <label
+            >Rate amount<input
+              name="amount"
+              type="number"
+              min="0"
+              max="1000000"
+              step="0.000001"
+              placeholder="Leave blank if unknown" /></label
+          ><label
+            >Currency<select name="currency">
+              <option>USD</option>
+              <option>SGD</option>
+              <option>EUR</option>
+              <option>GBP</option>
+              <option>CNY</option>
+              <option>JPY</option>
+              <option>AUD</option>
+              <option>CAD</option>
+            </select></label
+          ><label class="full"
+            >Rate period<select name="period">
+              <option value="monthly">Per month</option>
+              <option value="hourly">Per hour · assume running all month</option>
+            </select></label
+          ><label class="full"
+            >Estimate basis / included costs<textarea
+              name="basis"
+              rows="3"
+              maxlength="500"
+              placeholder="e.g. Basic plan. Backup and tax excluded."
+            ></textarea></label
+          ><label class="full"
+            >Price source URL <span class="optional">optional</span
+            ><input type="url" name="sourceUrl" maxlength="2048" placeholder="https://…"
+          /></label>
+        </div>
+        <p class="field-help">
+          Hourly rates use every hour in the current UTC calendar month. Monthly rates stay fixed. Enter 0
+          only for a known zero-cost plan; leave blank to mark unknown. Different currencies remain separate.
+        </p>
+        <p id="cost-error" class="form-error" role="alert" hidden></p>
+        <div class="dialog-actions">
+          <button type="button" class="button secondary close-dialog">Cancel</button
+          ><button class="button primary" id="save-cost" type="submit">Save estimate</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="billing-dialog">
+      <div class="dialog-heading">
+        <div class="eyebrow">OPTIONAL · READ-ONLY ACCESS</div>
+        <button class="icon-button close-dialog" aria-label="Close">×</button>
+      </div>
+      <h2>Connect your billing</h2>
+      <p class="dialog-subtitle">
+        SSH tells us how a server is doing. Your cloud account tells us what it costs.
+      </p>
+      <h3>DigitalOcean</h3>
+      <ol>
+        <li>
+          In
+          <a
+            href="https://cloud.digitalocean.com/account/api/tokens"
+            target="_blank"
+            rel="noopener noreferrer"
+            >API → Tokens</a
+          >, create a token for the correct team with only <code>billing:read</code>.
+        </li>
+        <li>
+          Save the token in a private local text file outside this project, readable only by your user. Don’t
+          paste it into chat or server notes.
+        </li>
+        <li>
+          Copy <code>.env.example</code> to <code>.env</code> in the Lookout folder and set the token file
+          path:
+        </li>
+      </ol>
+      <pre>LOOKOUT_DO_TOKEN_FILE=C:/Users/YOUR_NAME/.config/lookout/do-token.txt</pre>
+      <p class="field-help">
+        You can alternatively set <code>DIGITALOCEAN_TOKEN</code> in the app’s process environment. Only the
+        backend reads it.
+      </p>
+      <h3>AWS</h3>
+      <ol>
+        <li>
+          Enable Cost Explorer in your
+          <a
+            href="https://console.aws.amazon.com/costmanagement/home#/cost-explorer"
+            target="_blank"
+            rel="noopener noreferrer"
+            >billing console</a
+          >. Use a read-only identity with <code>ce:GetCostAndUsage</code>.
+        </li>
+        <li>
+          Configure a local AWS profile named <code>lookout-billing</code>, preferably using AWS IAM Identity
+          Center, and sign in using the AWS CLI.
+        </li>
+        <li>Add these lines to Lookout’s <code>.env</code>:</li>
+      </ol>
+      <pre>
+LOOKOUT_AWS_BILLING=1
+LOOKOUT_AWS_PROFILE=lookout-billing</pre>
+      <p class="field-help">
+        Run <code>aws configure sso --profile lookout-billing</code>, then
+        <code>aws sso login --profile lookout-billing</code>. Use the account and read-only role supplied by
+        your AWS administrator. Setup guidance:
+        <a
+          href="https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/setting-credentials-node.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          >AWS credentials ↗</a
+        >
+      </p>
+      <h3>Restart, then fetch</h3>
+      <p class="field-help" id="billing-cache-help">
+        Restart Lookout and click <strong>Refresh billing</strong>. Queries run only when you request them;
+        successful results are cached locally for six hours. No cloud settings are changed by Lookout. Billing
+        may lag behind current usage.
+      </p>
+      <div class="guide-note">
+        AWS Cost Explorer costs USD 0.01 per primary-view API request. Lookout requests one account total per
+        refresh, reuses fresh cache entries, and does not automatically fetch billing during health checks.
+        DigitalOcean shows account usage and balance; AWS shows unblended usage cost, not an invoice amount
+        due.
+      </div>
+      <p class="field-help">
+        These are whole-account totals and can include resources outside your saved fleet. A management AWS
+        account may include its organization. One AWS profile and one DigitalOcean team are supported per
+        local app process.
+      </p>
+      <div class="guide-links">
+        <a
+          href="https://docs.digitalocean.com/platform/billing/reference/api/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >DigitalOcean billing API ↗</a
+        ><a
+          href="https://aws.amazon.com/aws-cost-management/aws-cost-explorer/pricing/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >AWS query pricing ↗</a
+        >
+      </div>
+    </dialog>
+    <div id="toast" class="toast" role="status" hidden></div>
+  </body>
+</html>

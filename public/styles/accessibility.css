@@ -1,0 +1,100 @@
+.mobile-action {
+  display: none;
+}
+.search input:not([type='checkbox']) {
+  border: 0;
+  margin: 0;
+  padding: 10px 0;
+  background: none;
+  font-size: 11px;
+}
+.page-heading p,
+.server-meta,
+.card-note,
+.field-help,
+.dialog-subtitle,
+.check-message,
+.poll-status {
+  color: #68775d;
+}
+.card-note {
+  font-size: 12px;
+}
+.server-meta,
+.card-target,
+.history-caption,
+.metric-label {
+  color: #737e69;
+}
+.summary-label,
+.summary-value small,
+.fleet-heading p,
+.filters button {
+  color: #67735d;
+}
+.check-message.warning {
+  color: #977025;
+}
+.check-message.down {
+  color: #a25d49;
+}
+.check-message.unknown,
+.check-message.stale {
+  color: #69768a;
+}
+.card-status.healthy {
+  color: #3c7647;
+}
+.card-status.warning {
+  color: #946b20;
+}
+.card-status.down {
+  color: #a14e3d;
+}
+.summary-label,
+.filters button {
+  font-size: 11px;
+}
+.metric-label,
+.history-caption,
+.check-message {
+  font-size: 10px;
+}
+.quick-links a,
+.quick-links .no-link {
+  font-size: 10px;
+}
+.card-footer {
+  flex-wrap: wrap;
+}
+.card-actions {
+  margin-left: auto;
+}
+.icon-button {
+  min-width: 27px;
+  min-height: 27px;
+}
+@media (max-width: 800px) {
+  .mobile-action {
+    display: block;
+  }
+  .topbar-right {
+    gap: 8px;
+  }
+  .avatar {
+    display: none;
+  }
+}
+@media (max-width: 540px) {
+  .local-pill {
+    font-size: 7px;
+    letter-spacing: 0.5px;
+  }
+  .breadcrumb {
+    gap: 8px;
+  }
+  .filters button {
+    padding: 8px 7px;
+    font-size: 10px;
+  }
+}

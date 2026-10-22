@@ -1,0 +1,21 @@
+{
+  "port": 4310,
+  "dataDirectory": "./data",
+  "monitoring": {
+    "intervalSeconds": 30,
+    "timeoutMs": 10000,
+    "concurrency": 4,
+    "historyLimit": 60,
+    "maxServers": 200
+  },
+  "thresholds": {
+    "cpu": 90,
+    "memory": 85,
+    "disk": 85,
+    "latencyMs": 1500,
+    "staleMultiplier": 2.5,
+    "staleMinimumMs": 45000
+  },
+  "billing": { "cacheHours": 6, "retrySeconds": 60 },
+  "ui": { "refreshMs": 5000, "historyVisible": 28 }
+}
