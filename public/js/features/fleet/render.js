@@ -50,11 +50,23 @@ export function renderFleet({ state, demo, statusFilter, providerFilter, search,
   $('#fleet-description').textContent = providerFilter
     ? `${providerFilter} · ${filtered.length} servers in view`
     : 'One place for every server.';
+  const expanded = new Map(
+    $$('#server-grid [data-containers][open]').map((panel) => [
+      panel.closest('[data-id]').dataset.id,
+      panel.querySelector('.container-list')?.scrollTop ?? 0,
+    ]),
+  );
   $('#server-grid').innerHTML =
     filtered.map((server) => card(server, state)).join('') +
     (total && statusFilter === 'all' && !search && !providerFilter
       ? '<button class="add-card add-button"><span class="plus">＋</span><strong>Room for another.</strong><small>Add a server to your fleet</small></button>'
       : '');
+  $$('#server-grid [data-containers]').forEach((panel) => {
+    const id = panel.closest('[data-id]').dataset.id;
+    if (!expanded.has(id)) return;
+    panel.open = true;
+    panel.querySelector('.container-list').scrollTop = expanded.get(id);
+  });
   $('#empty-state').hidden = total !== 0;
   $('#no-results').hidden = total === 0 || filtered.length !== 0;
   $('#demo-banner').hidden = !demo && !state.demo;

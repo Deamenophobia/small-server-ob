@@ -8,7 +8,7 @@ export function createServerEditor(context) {
       section.hidden = section.dataset.type !== type;
       section.querySelectorAll('input').forEach((input) => {
         input.disabled = section.hidden;
-        input.required = !section.hidden;
+        input.required = !section.hidden && input.type !== 'checkbox';
       });
     });
   }
@@ -31,6 +31,7 @@ export function createServerEditor(context) {
       form.elements[key].value = server?.[key] ?? (key === 'provider' ? 'DigitalOcean' : '');
     form.elements.enabled.checked = server?.enabled !== false;
     form.elements.type.value = server?.check.type ?? 'ssh';
+    form.elements.docker.checked = server?.check.docker === true;
     for (const key of ['alias', 'url', 'host', 'port', 'timeoutMs'])
       form.elements[key].value =
         server?.check[key] ??
@@ -60,7 +61,7 @@ export function createServerEditor(context) {
         type: fields.type,
         timeoutMs: Number(fields.timeoutMs),
         ...(fields.type === 'ssh'
-          ? { alias: fields.alias }
+          ? { alias: fields.alias, docker: form.elements.docker.checked }
           : fields.type === 'http'
             ? { url: fields.url }
             : { host: fields.host, port: Number(fields.port) }),

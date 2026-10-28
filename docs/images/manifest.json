@@ -15,6 +15,10 @@
     {
       "file": "cost-editor.jpg",
       "sha256": "535be898c4b97c89e9942e89ff3d48b10f864aef4534b3d56090caa987d5107e"
+    },
+    {
+      "file": "docker-panel.jpg",
+      "sha256": "237bf4b72167c83db31d58be546e622ac3e7b2140f6b8ef336ef2908fbfdb927"
     }
   ]
 }

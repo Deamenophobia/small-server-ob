@@ -1,4 +1,5 @@
 import { escape } from '../../core/dom.js';
+import { containerMarkup } from './containers.js';
 
 const labels = {
   healthy: 'Healthy',
@@ -128,6 +129,7 @@ export function card(server, state) {
       <div class="card-target" title="${escape(target(server))}">${escape(target(server))}</div>
       <p class="card-note">${escape(server.notes || 'No notes yet. Add a little context for future-you.')}</p>
       ${observationMarkup(server, thresholds)}
+      ${containerMarkup(server)}
       ${historyMarkup(server, visible)}
       <div class="check-message ${server.status}">${escape(message)}<br><span>${age(latest?.at)}${duration}</span></div>
     </div>

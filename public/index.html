@@ -184,6 +184,14 @@
               Uses your existing SSH keys and config. The host must run Linux with Python 3.
               <button type="button" class="text-button" id="ssh-help">Setup guide ↗</button>
             </p>
+            <label class="checkbox-label"
+              ><input name="docker" type="checkbox" /> Monitor Docker containers</label
+            >
+            <p class="field-help">
+              Optional inventory and health checks through SSH. Requires Docker access to
+              <code>/var/run/docker.sock</code>. Docker access can grant root-level privileges; configure it
+              yourself. This app does not change permissions or control containers.
+            </p>
           </div>
           <div class="full check-fields" data-type="http" hidden>
             <label

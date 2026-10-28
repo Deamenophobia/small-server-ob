@@ -71,6 +71,14 @@ Run `ssh production-api` yourself, verify the host key against your provider's t
 
 Small Server OB uses a fixed read-only Python program over standard input. It reads `/proc/stat` twice over 0.4 seconds, `/proc/meminfo`, and root-filesystem usage. It does not install anything, request sudo, accept arbitrary commands, copy keys, or save passwords. It uses noninteractive SSH and strict host-key checking. Existing SSH configuration (including user-configured proxy/jump-host behavior) is trusted local configuration. The displayed SSH duration includes login and collection, **not** just network latency.
 
+### Docker containers
+
+For an SSH server, enable **Monitor Docker containers** in its editor, then expand **Containers** on the card. See container names, images, running/stopped states, uptime/status, and configured health-check results. Existing servers stay opted out. Host health and container health are shown separately.
+
+See [Docker setup, permissions, and limits](docs/docker.md). This first version uses the remote Docker CLI and its local `/var/run/docker.sock`; per-container CPU/memory statistics and management actions are deferred.
+
+![Docker inventory and health panels with entirely fictional containers](docs/images/docker-panel.jpg)
+
 ### Status meanings (default thresholds)
 
 - **Healthy:** HTTP 2xx / a successful TCP connection under 1.5 seconds, or valid SSH metrics below the thresholds.
