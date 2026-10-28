@@ -4,15 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Your servers, in sight. A private, local server observatory." />
-    <title>Lookout — Server observatory</title>
+    <title>Small Server OB — Server observatory</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/style.css" />
     <script type="module" src="/app.js"></script>
   </head>
   <body>
     <aside class="sidebar">
-      <a class="brand" href="/" aria-label="Lookout home"
-        ><span class="brand-mark">◒</span> lookout<span class="brand-period">.</span></a
+      <a class="brand" href="/" aria-label="Small Server OB home"
+        ><span class="brand-mark" aria-hidden="true">◒</span
+        ><span class="brand-name">Small Server<br />OB</span></a
       >
       <div class="workspace">
         <span class="workspace-icon">L</span>
@@ -290,10 +291,11 @@ Host production-api
         trusting it. If your key is encrypted, unlock it in your SSH agent. Check that <code>python3</code> is
         available on the Linux host.
       </p>
-      <h3>03 &nbsp; Add it to Lookout</h3>
+      <h3>03 &nbsp; Add it to Small Server OB</h3>
       <p class="field-help">
-        Choose SSH and enter <code>production-api</code>. Lookout reads CPU activity, available memory, and
-        root-filesystem usage using a fixed Python program. It installs nothing and does not need sudo.
+        Choose SSH and enter <code>production-api</code>. Small Server OB reads CPU activity, available
+        memory, and root-filesystem usage using a fixed Python program. It installs nothing and does not need
+        sudo.
       </p>
       <div class="guide-note" id="threshold-note">
         CPU ≥ 90%, memory ≥ 85%, or disk ≥ 85% shows a warning. SSH collection time includes login and a short
@@ -416,8 +418,8 @@ Host production-api
           paste it into chat or server notes.
         </li>
         <li>
-          Copy <code>.env.example</code> to <code>.env</code> in the Lookout folder and set the token file
-          path:
+          Copy <code>.env.example</code> to <code>.env</code> in the Small Server OB folder and set the token
+          file path:
         </li>
       </ol>
       <pre>LOOKOUT_DO_TOKEN_FILE=C:/Users/YOUR_NAME/.config/lookout/do-token.txt</pre>
@@ -440,7 +442,7 @@ Host production-api
           Configure a local AWS profile named <code>lookout-billing</code>, preferably using AWS IAM Identity
           Center, and sign in using the AWS CLI.
         </li>
-        <li>Add these lines to Lookout’s <code>.env</code>:</li>
+        <li>Add these lines to Small Server OB’s <code>.env</code>:</li>
       </ol>
       <pre>
 LOOKOUT_AWS_BILLING=1
@@ -458,15 +460,15 @@ LOOKOUT_AWS_PROFILE=lookout-billing</pre>
       </p>
       <h3>Restart, then fetch</h3>
       <p class="field-help" id="billing-cache-help">
-        Restart Lookout and click <strong>Refresh billing</strong>. Queries run only when you request them;
-        successful results are cached locally for six hours. No cloud settings are changed by Lookout. Billing
-        may lag behind current usage.
+        Restart Small Server OB and click <strong>Refresh billing</strong>. Queries run only when you request
+        them; successful results are cached locally for six hours. No cloud settings are changed by Small
+        Server OB. Billing may lag behind current usage.
       </p>
       <div class="guide-note">
-        AWS Cost Explorer costs USD 0.01 per primary-view API request. Lookout requests one account total per
-        refresh, reuses fresh cache entries, and does not automatically fetch billing during health checks.
-        DigitalOcean shows account usage and balance; AWS shows unblended usage cost, not an invoice amount
-        due.
+        AWS Cost Explorer costs USD 0.01 per primary-view API request. Small Server OB requests one account
+        total per refresh, reuses fresh cache entries, and does not automatically fetch billing during health
+        checks. DigitalOcean shows account usage and balance; AWS shows unblended usage cost, not an invoice
+        amount due.
       </div>
       <p class="field-help">
         These are whole-account totals and can include resources outside your saved fleet. A management AWS

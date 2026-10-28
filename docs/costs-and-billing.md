@@ -1,6 +1,6 @@
 # Costs and billing
 
-Lookout separates **monthly server estimates** from **provider-reported account usage**. Neither is a guaranteed invoice amount due. Prices, discounts, credits, taxes, bandwidth, backups, extra storage, public IP addresses, and other services can change what you pay.
+Small Server OB separates **monthly server estimates** from **provider-reported account usage**. Neither is a guaranteed invoice amount due. Prices, discounts, credits, taxes, bandwidth, backups, extra storage, public IP addresses, and other services can change what you pay.
 
 **Checking server health does not call Cost Explorer.** Opening or refreshing the dashboard and viewing saved estimates also make no billing requests. AWS billing is disabled by default. If you enable it, only **Refresh billing** can request new account usage; successful results are reused for six hours. One fresh AWS request per day would cost USD 0.30 over 30 days at the current primary-view API price. This is separate from the cost of running your servers.
 
@@ -24,7 +24,7 @@ LOOKOUT_DO_TOKEN_FILE=C:/Users/YOUR_NAME/.config/lookout/do-token.txt
 
 On Linux, use an absolute path such as `/home/YOUR_NAME/.config/lookout/do-token.txt`. Shell variables and `~` are not expanded in `.env`; see the [Linux setup guide](linux.md).
 
-Alternatively, provide `DIGITALOCEAN_TOKEN` in the environment of the Lookout process. The token is read only on the backend. It is not returned to the browser or included in exports or cached billing responses.
+Alternatively, provide `DIGITALOCEAN_TOKEN` in the environment of the Small Server OB process. The token is read only on the backend. It is not returned to the browser or included in exports or cached billing responses.
 
 The adapter calls `GET https://api.digitalocean.com/v2/customers/my/balance`. It shows month-to-date usage and the provider's month-to-date balance, which includes prior account balance. Negative balances represent credit. The provider's generation time is shown separately from retrieval time. See the [official billing API](https://docs.digitalocean.com/platform/billing/reference/api/).
 
@@ -53,7 +53,7 @@ aws configure sso --profile lookout-billing
 aws sso login --profile lookout-billing
 ```
 
-4. Add to Lookout's `.env`:
+4. Add to Small Server OB's `.env`:
 
 ```dotenv
 LOOKOUT_AWS_BILLING=1
@@ -66,15 +66,15 @@ Sources: [AWS credential setup](https://docs.aws.amazon.com/sdk-for-javascript/v
 
 ## Fetching and scope
 
-Restart Lookout after configuring credentials, then choose **Refresh billing**. One AWS profile and one DigitalOcean team are supported per process. Requests are explicit; health checks and opening the dashboard never trigger a billing API query.
+Restart Small Server OB after configuring credentials, then choose **Refresh billing**. One AWS profile and one DigitalOcean team are supported per process. Requests are explicit; health checks and opening the dashboard never trigger a billing API query.
 
 Successful responses are cached in ignored `data/billing-cache.json` for six hours and survive restart. Requests within the cache lifetime reuse the saved amounts. A new billing month invalidates the cache. Failed sources keep any prior amount labeled stale/unavailable, and missing or malformed amounts never become zero. Concurrent refreshes share the same work. Failed refreshes are throttled for one minute.
 
 AWS queries a single ungrouped current-month total of `UnblendedCost`, with one attempt and no automatic pagination. An unexpected partial response is treated as unavailable. This is usage cost for the account; a management account can include organization members. It does not allocate costs to the specific server cards or report your invoice balance due.
 
-AWS charges **USD 0.01 per primary-view Cost Explorer API request**, according to its [pricing page](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/pricing/), checked 2026-10-22. Lookout does not enable granular resource-level billing features or change any cloud settings. Taxes and service pricing remain governed by the providers.
+AWS charges **USD 0.01 per primary-view Cost Explorer API request**, according to its [pricing page](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/pricing/), checked 2026-10-22. Small Server OB does not enable granular resource-level billing features or change any cloud settings. Taxes and service pricing remain governed by the providers.
 
-DigitalOcean totals also cover the entire account, including resources outside Lookout. Never add account usage to the fleet estimate: these amounts overlap and cover different periods and scopes.
+DigitalOcean totals also cover the entire account, including resources outside Small Server OB. Never add account usage to the fleet estimate: these amounts overlap and cover different periods and scopes.
 
 ## Verification
 

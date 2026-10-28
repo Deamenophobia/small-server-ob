@@ -28,4 +28,10 @@ Desktop browser checks completed on 2026-10-22 in the in-app browser. The flows 
 
 The documentation captures show the overview, the fleet, and the editable cost dialog. The fleet image was replaced with a landscape capture showing its complete heading and three full server cards, including resource usage, notes, and costs. They are ordinary screenshots, not generated mockups. `docs/images/manifest.json` records their hashes and fictional-demo provenance. `npm run docs:check` validates the README image references, hashes, and—when the default local registry is present—checks documentation text and demo sources for its server identifiers. Hashes and text checks do not perform OCR; the privacy guarantee also depends on capture isolation and visual inspection.
 
-Responsive styles are retained, but this verification run covers the desktop viewport only. There is no automated pixel-diff regression suite and no claim of mobile browser coverage. Live SSH and paid cloud billing APIs are outside this screenshot run.
+The 2026-10-22 verification run covered the desktop viewport only. There is no automated pixel-diff regression suite and no claim of mobile browser coverage. Live SSH and paid cloud billing APIs are outside this screenshot run.
+
+## Rename verification — 2026-10-29
+
+Refreshed all three documentation screenshots from the isolated fictional demo after renaming the app to **Small Server OB**. Verified the new page title and sidebar label, the Needs attention filter, Harbor search, and editing Harbor's monthly estimate from 18 to 20 (fleet total 64 to 66), then restored 18. Billing remained disconnected. The overview, complete first row of fleet cards, and cost editor were visually inspected; the browser reported no console warnings or errors.
+
+Checked the logo at the default desktop width and a 1000-pixel viewport, plus the overview at a 390-pixel viewport. The logo fit the compact sidebar and the phone-width overview had no horizontal overflow. This is limited responsive layout coverage, not a full mobile interaction suite. Temporary viewport overrides were reset after testing. No real server or billing credentials were used.

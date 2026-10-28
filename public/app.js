@@ -53,7 +53,7 @@ async function refresh() {
   } catch {
     $('#connection-alert').hidden = false;
     $('#connection-alert').textContent =
-      'Local backend disconnected. Displayed readings are cached. Start Lookout again to resume monitoring.';
+      'Local backend disconnected. Displayed readings are cached. Start Small Server OB again to resume monitoring.';
     state.checking = false;
     state.servers.forEach((server) => {
       if (server.enabled && server.latest) server.status = 'stale';

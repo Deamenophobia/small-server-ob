@@ -32,7 +32,7 @@ export function initializeWorkspace(context) {
       );
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'lookout-registry.json';
+      link.download = 'small-server-ob-registry.json';
       link.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
       notify('Registry exported.');

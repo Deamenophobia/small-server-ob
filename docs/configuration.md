@@ -1,6 +1,8 @@
 # Configuration
 
-Copy `lookout.config.example.json` to `lookout.config.json`, change the values you need, and restart Lookout. Every field is optional; omitted values use defaults. Unknown keys, invalid types, and out-of-range values stop startup with an error before health collection begins.
+The project is now named **Small Server OB**. The `lookout.config.json` filename and `LOOKOUT_*` environment variables remain supported under their original names; no configuration or registry migration is needed.
+
+Copy `lookout.config.example.json` to `lookout.config.json`, change the values you need, and restart Small Server OB. Every field is optional; omitted values use defaults. Unknown keys, invalid types, and out-of-range values stop startup with an error before health collection begins.
 
 ```powershell
 Copy-Item lookout.config.example.json lookout.config.json
@@ -39,7 +41,7 @@ All numeric settings except `staleMultiplier` are integers. The effective thresh
 2. JSON configuration file.
 3. `PORT` and `LOOKOUT_DATA_DIR` environment overrides.
 
-`LOOKOUT_CONFIG` selects an alternative JSON file; a relative path is resolved from the working directory. If explicitly selected, a missing file is an error. With no override, Lookout checks `lookout.config.json` in the project directory. Relative `LOOKOUT_DATA_DIR` paths resolve from the working directory.
+`LOOKOUT_CONFIG` selects an alternative JSON file; a relative path is resolved from the working directory. If explicitly selected, a missing file is an error. With no override, Small Server OB checks `lookout.config.json` in the project directory. Relative `LOOKOUT_DATA_DIR` paths resolve from the working directory.
 
 The entry point loads the project's optional `.env` before resolving configuration. Existing process environment values take precedence over `.env` values. Billing opt-in variables and token/profile settings stay in that environment path; they are not accepted as JSON config keys.
 

@@ -36,7 +36,7 @@ function launch(script, cwd, env) {
   const ready = new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error(`Launcher did not become ready: ${output}`)), 10000);
     child.stdout.on('data', () => {
-      if (output.includes('Lookout is ready at')) {
+      if (output.includes('Small Server OB is ready at')) {
         clearTimeout(timer);
         resolve();
       }
@@ -90,7 +90,7 @@ test(
     };
     running = launch(script, directory, env);
     await running.ready;
-    assert.match(await (await fetch(base)).text(), /Lookout/);
+    assert.match(await (await fetch(base)).text(), /Small Server OB/);
     const initial = await (await fetch(`${base}/api/state`)).json();
     assert.equal(initial.dataDirectory, data);
     assert.equal(initial.billing.providers.aws.enabled, false);

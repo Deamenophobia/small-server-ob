@@ -10,7 +10,7 @@ export async function api(path, { method = 'GET', data } = {}) {
     ...(data !== undefined ? { body: JSON.stringify(data) } : {}),
   });
   if (!response.headers.get('content-type')?.includes('application/json'))
-    throw new Error('The local backend is unavailable. Restart Lookout and reload this page.');
+    throw new Error('The local backend is unavailable. Restart Small Server OB and reload this page.');
   const body = await response.json();
   if (!response.ok) {
     if (response.status === 403) token = null;

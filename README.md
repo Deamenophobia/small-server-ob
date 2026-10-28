@@ -1,8 +1,10 @@
-# Lookout
+# Small Server OB
 
 A small, local server observatory. Keep servers from different providers in one calm dashboard, with notes, quick links, health checks, and a persistent local registry.
 
-![Lookout dashboard with fictional servers and illustrative budgets](docs/images/overview.jpg)
+Previously named Lookout. Existing registries and exports remain compatible. The `LOOKOUT_*` environment variables, `lookout.config.json` filename, and local API token header retain their original names so existing installations keep working.
+
+![Small Server OB dashboard with fictional servers and illustrative budgets](docs/images/overview.jpg)
 
 **All README images use fictional demo data.** No real server names, addresses, notes, metrics, or billing records are included.
 
@@ -11,7 +13,7 @@ A small, local server observatory. Keep servers from different providers in one 
 Requires **Node.js 22 or newer**. There is no build step. Install the AWS billing SDK dependencies once:
 
 ```powershell
-cd path/to/server-observatory
+cd path/to/small-server-ob
 npm ci
 npm start
 ```
@@ -65,9 +67,9 @@ Host production-api
   IdentityFile ~/.ssh/your-private-key
 ```
 
-Run `ssh production-api` yourself, verify the host key against your provider's trusted information, and confirm that `python3` works. Encrypted keys must already be unlocked through your SSH agent. Enter `production-api` in Lookout. A non-root account is sufficient for normal Linux `/proc` reads.
+Run `ssh production-api` yourself, verify the host key against your provider's trusted information, and confirm that `python3` works. Encrypted keys must already be unlocked through your SSH agent. Enter `production-api` in Small Server OB. A non-root account is sufficient for normal Linux `/proc` reads.
 
-Lookout uses a fixed read-only Python program over standard input. It reads `/proc/stat` twice over 0.4 seconds, `/proc/meminfo`, and root-filesystem usage. It does not install anything, request sudo, accept arbitrary commands, copy keys, or save passwords. It uses noninteractive SSH and strict host-key checking. Existing SSH configuration (including user-configured proxy/jump-host behavior) is trusted local configuration. The displayed SSH duration includes login and collection, **not** just network latency.
+Small Server OB uses a fixed read-only Python program over standard input. It reads `/proc/stat` twice over 0.4 seconds, `/proc/meminfo`, and root-filesystem usage. It does not install anything, request sudo, accept arbitrary commands, copy keys, or save passwords. It uses noninteractive SSH and strict host-key checking. Existing SSH configuration (including user-configured proxy/jump-host behavior) is trusted local configuration. The displayed SSH duration includes login and collection, **not** just network latency.
 
 ### Status meanings (default thresholds)
 
@@ -130,7 +132,7 @@ npm run docs:check
 npm run repo:check
 ```
 
-GitLab CI and GitHub Actions run these checks and the test suite on Node.js 22 and 24 after pushes and for merge/pull requests. GitLab shows test results in the pipeline's **Tests** tab; GitHub provides a separate JUnit artifact for each Node.js version. Reports are retained for seven days. Both pipelines use temporary registries, loopback services, and fictional fixtures; they require no server or billing credentials. Launch Lookout on your own computer with `npm start`; these pipelines verify the source and do not deploy the app.
+GitLab CI and GitHub Actions run these checks and the test suite on Node.js 22 and 24 after pushes and for merge/pull requests. GitLab shows test results in the pipeline's **Tests** tab; GitHub provides a separate JUnit artifact for each Node.js version. Reports are retained for seven days. Both pipelines use temporary registries, loopback services, and fictional fixtures; they require no server or billing credentials. Launch Small Server OB on your own computer with `npm start`; these pipelines verify the source and do not deploy the app.
 
 `repo:check` inspects the Git index for private runtime files and common credential patterns. When the local registry exists, it also checks tracked text for known server identifiers. Run it locally after staging changes and before pushing; CI cannot compare against a private registry it never receives. This is a focused guard, not a comprehensive secret scanner.
 
@@ -144,4 +146,4 @@ Run `npm run format` to apply the shared formatting rules to source and document
 
 ## Related project
 
-[Ops Compass](https://github.com/Deamenophobia/ops-compass) is a personal operations portal built on Backstage, with a service catalog, ownership, dependencies, runbooks, worklogs and read-only AI tools. It complements Lookout's lightweight server dashboard with broader service and operations context. The projects run independently; there is no built-in data synchronization.
+[Ops Compass](https://github.com/Deamenophobia/ops-compass) is a personal operations portal built on Backstage, with a service catalog, ownership, dependencies, runbooks, worklogs and read-only AI tools. It complements Small Server OB's lightweight server dashboard with broader service and operations context. The projects run independently; there is no built-in data synchronization.

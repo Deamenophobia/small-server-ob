@@ -1,6 +1,6 @@
-# Run Lookout on Linux
+# Run Small Server OB on Linux
 
-Lookout runs on your Linux computer and opens in your browser. The same application supports Windows and Linux, including SSH metrics, HTTP/TCP checks, notes, links, saved configuration, and optional billing access.
+Small Server OB runs on your Linux computer and opens in your browser. The same application supports Windows and Linux, including SSH metrics, HTTP/TCP checks, notes, links, saved configuration, and optional billing access.
 
 ## Requirements
 
@@ -9,11 +9,11 @@ Lookout runs on your Linux computer and opens in your browser. The same applicat
 - An OpenSSH **client** on this computer for SSH checks. On Ubuntu/Debian, install it with `sudo apt install openssh-client` if `ssh -V` is unavailable. See [Ubuntu's OpenSSH documentation](https://ubuntu.com/server/docs/how-to/security/openssh-server/).
 - Python 3 on each monitored Linux server when collecting SSH metrics.
 
-The launcher checks the Node.js version. A distribution's default Node.js package may be too old, so check `node --version` before continuing. Run Lookout as your ordinary user so it uses that user's SSH configuration and agent.
+The launcher checks the Node.js version. A distribution's default Node.js package may be too old, so check `node --version` before continuing. Run Small Server OB as your ordinary user so it uses that user's SSH configuration and agent.
 
 ## Start
 
-From your cloned or extracted Lookout folder:
+From your cloned or extracted Small Server OB folder:
 
 ```sh
 npm ci

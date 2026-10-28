@@ -1,6 +1,6 @@
 # Architecture and extension points
 
-Lookout is a local Node.js application with a buildless browser interface. Modules use native ES imports. The server always binds to loopback; configuration cannot turn it into a public service.
+Small Server OB is a local Node.js application with a buildless browser interface. Modules use native ES imports. The server always binds to loopback; configuration cannot turn it into a public service.
 
 ```text
 server.mjs                    CLI: load environment/config, start, stop
@@ -43,7 +43,7 @@ Health collection has no path to billing refresh. Billing is queried only by the
 3. For a **new check type**, extend validation in `lib/model.mjs`, add its fields to the server dialog/editor, and add its observation rendering in `public/js/features/fleet/cards.js`. Merely adding a function does not permit unvalidated input through the API.
 4. Add behavioral tests for success, failure, timeout, malformed responses, and serialized configuration. Keep SSH commands fixed, host-key verification enabled, and credentials out of records.
 
-Existing check types remain `ssh`, `http`, and `tcp`. Adapter replacement is a code-level extension point; Lookout does not execute arbitrary commands or load untrusted plugins from configuration.
+Existing check types remain `ssh`, `http`, and `tcp`. Adapter replacement is a code-level extension point; Small Server OB does not execute arbitrary commands or load untrusted plugins from configuration.
 
 ## Add a billing provider
 

@@ -7,7 +7,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65535)
 const demo = await createDemoApp();
 await demo.start(port);
 console.log(
-  `Fictional Lookout demo: http://127.0.0.1:${port}\nNo real servers, billing calls, or persistent registry. Ctrl+C to stop.`,
+  `Fictional Small Server OB demo: http://127.0.0.1:${port}\nNo real servers, billing calls, or persistent registry. Ctrl+C to stop.`,
 );
 for (const signal of ['SIGINT', 'SIGTERM'])
   process.on(signal, async () => {

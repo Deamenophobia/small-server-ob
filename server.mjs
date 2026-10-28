@@ -16,7 +16,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     const instance = await createApp({ config });
     await instance.start();
     console.log(
-      `Lookout is ready at http://127.0.0.1:${config.port}\nRegistry: ${instance.store.directory}\nPress Ctrl+C to stop.`,
+      `Small Server OB is ready at http://127.0.0.1:${config.port}\nRegistry: ${instance.store.directory}\nPress Ctrl+C to stop.`,
     );
     let closing = false;
     for (const signal of ['SIGINT', 'SIGTERM'])

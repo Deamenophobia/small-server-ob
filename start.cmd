@@ -6,6 +6,6 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-echo Starting Lookout. Open http://127.0.0.1:4310 in your browser.
+echo Starting Small Server OB. Open http://127.0.0.1:4310 in your browser.
 node server.mjs
 if errorlevel 1 pause
