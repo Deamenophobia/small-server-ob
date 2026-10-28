@@ -147,3 +147,7 @@ Run `npm run format` to apply the shared formatting rules to source and document
 ## Related project
 
 [Ops Compass](https://github.com/Deamenophobia/ops-compass) is a personal operations portal built on Backstage, with a service catalog, ownership, dependencies, runbooks, worklogs and read-only AI tools. It complements Small Server OB's lightweight server dashboard with broader service and operations context. The projects run independently; there is no built-in data synchronization.
+
+## License
+
+Licensed under the [MIT License](LICENSE).

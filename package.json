@@ -1,6 +1,7 @@
 {
   "name": "small-server-ob",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "description": "A local home for your servers, health checks, and notes.",
